@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% extends 'base.html' %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+</head>
+<body>
+    
+  {%block body%}
+
+  <nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="">NS</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">Search Product</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/addproduct">Add to Favorite List</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/ask_productlist">Get Favorite List</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <br>
+   
+    {% for message in messages %}
+      <div class="alery alert-{{message.tag}} alert-dismissble fade show" role="alert">
+      <strong>Message: </strong> {{message}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+    {% endfor %}
+    
+    <labal for="">Add Prouct to Favorite List</labal>
+        <br>
+    <form method="POST">
+        {% csrf_token %}
+        <br>
+        <div class="form-group">
+            <label for="">Email Adress:</label>
+            <input type="text" class="form-control" id="email" name="email" placeholder="Please insert your email adress" required>      
+        </div>
+      
+          <div class="form-group">
+              <label for="">Source:</label>
+              <input type="text" class="form-control" id="source" name="source" placeholder="Please insert the source name" required>      
+          </div>
+          
+          <div class="form-group">
+              <label for="">Source ID:</label>
+              <input type="text" id="source_id" class="form-control" name="source_id" placeholder="Please insert the source id" required>
+          </div>
+<br>
+          <button type="submit" class="btn btn-primary mb-2">Search Product</button>
+      
+</form>
+{% endblock %}
+</body>
+</html>
