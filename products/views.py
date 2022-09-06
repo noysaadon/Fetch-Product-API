@@ -86,17 +86,3 @@ def productlist(request):
         product_list=None
 
     return render(request ,'product/productlistdetails.html', {'product_list':product_list})
-
-
-"""
-def productlist(request):
-    
-    if FavoriteList.objects.filter(email=em).exists:
-        pass
-    else:
-        messages.error(request, "There isn't exist this email adrees. Please create your favorite list")
-    
-    product_list=None
-    
-    return render(request ,'product/productlistdetails.html', {'product_list': product_list})
-    """
