@@ -22,7 +22,7 @@ class FavoriteList(models.Model):
 class FavoriteandProduct(models.Model):
 
     source_id = models.ForeignKey('Product', on_delete=models.CASCADE)
-    email = models.ForeignKey('FavoriteList', primary_key=True, on_delete=models.CASCADE)
+    email = models.ForeignKey('FavoriteList', on_delete=models.CASCADE)
 
     def __str__(self):
         return "{} ---> {}".format(self.source_id.__str__() , self.email.__str__())
