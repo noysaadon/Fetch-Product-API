@@ -43,16 +43,13 @@ def addproduct(request):
         source_id = request.POST.get('source_id','')
 
         if Product.objects.filter(source = source ,source_id = source_id).exists():
-            p=Product.objects.get(source = source ,source_id = source_id)
-
+            p = Product.objects.get(source = source ,source_id = source_id)
+            
             if FavoriteList.objects.filter(email=email).exists():
-                user_favorite = FavoriteList.objects.get(email=email)
-                user_favorite.favorite_product.add(p)
-                user_favorite.save()
-            else:
-                user_favorite = FavoriteList.objects.create(email=email)
-                user_favorite.favorite_product.add(p)
-                user_favorite.save()
+                e= FavoriteList.objects.get_or_create(email=email)
+            
+            FavoriteandProduct.objects.filter(email= e).update_or_create(source_id = p)
+
         else:
             messages.error(request, "The product doesnt exsit in the DB. Please go to 'Search Product' to insert the product")
             return redirect('addproduct')
