@@ -21,6 +21,7 @@ class FavoriteList(models.Model):
 
 class FavoriteandProduct(models.Model):
 
+    id = models.AutoField(primary_key=True)
     source_id = models.ForeignKey('Product', on_delete=models.CASCADE)
     email = models.ForeignKey('FavoriteList', on_delete=models.CASCADE)
 
