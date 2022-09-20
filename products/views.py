@@ -45,10 +45,11 @@ def addproduct(request):
         if Product.objects.filter(source = source ,source_id = source_id).exists():
             p = Product.objects.get(source = source ,source_id = source_id)
             
-            if FavoriteList.objects.filter(email=email).exists():
-                e= FavoriteList.objects.get_or_create(email=email)
-            
-            FavoriteandProduct.objects.filter(email= e).update_or_create(source_id = p)
+            if not FavoriteList.objects.filter(email=email).exists():
+                FavoriteList.objects.create(email=email)
+
+            email_user= FavoriteList.objects.get(email=email)
+            FavoriteandProduct.objects.create(source_id = p , email=email_user)
 
         else:
             messages.error(request, "The product doesnt exsit in the DB. Please go to 'Search Product' to insert the product")
@@ -70,10 +71,12 @@ def ask_productlist(request):
 
 
 def productlist(request):
-
     try:
         user = FavoriteList.objects.get(email=em)
-        product_list = user.favorite_product.all()
+        product_list = list()
+        for product in user.favorite_product.all():
+           product_list.append(FavoriteandProduct.objects.get(source_id=product , email = user))
+
     except FavoriteList.DoesNotExist:
         messages.error(request, "There isn't exist this email adrees. Please create your favorite list")
         product_list=None
